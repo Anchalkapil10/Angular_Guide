@@ -1,0 +1,34 @@
+//Bind Specific Keys
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <div>write a valid url and press enter</div>
+    <input
+     type="text"
+     placeholder="Your Url"
+     (keydown.enter)="keydownHandler($event)"
+     >
+  `,
+})
+export class AppComponent {
+  // `Event` instead of `KeyboardEvent`
+  keydownHandler(event: Event) {
+    const input = (event.currentTarget as HTMLInputElement)
+    const url = input.value;
+
+    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    const isUrlValid = urlRegex.test(url)
+
+    if (isUrlValid) {
+      window.open(url)
+    }
+  }
+}
+
+// In fact we now invoke keydownHandler only when the Enter key is pressed:
+// (keyboard.enter)="keydownHandler($event)"
+// We can now avoid to check if key is equal to Enter since the keydownHandler will be directly invoked only when  Enter is pressed.
