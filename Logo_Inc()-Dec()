@@ -1,0 +1,31 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <button (click)="dec()">-</button>
+    <button (click)="inc()">+</button>
+    <hr>
+    <img
+      [src]="image"
+      [alt]="description"
+      [width]="width"
+    >
+  `,
+})
+export class AppComponent {
+  image = 'https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2023/2023-11/angular-logo-1200-628.png?sfvrsn=bf64b1ee_3'
+  width = 100;
+  description = 'Angular Logo'
+
+  dec() {
+    if (this.width > 100) {
+      this.width = this.width - 10
+    }
+  }
+
+  inc() {
+    this.width = this.width + 10
+  }
+}
