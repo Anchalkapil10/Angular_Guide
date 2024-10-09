@@ -1,0 +1,31 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <div>Your URL should start with http://</div>
+    <input
+     type="text"
+     placeholder="Your Url"
+     (keydown)="keydownHandler($event)"
+     >
+  `,
+})
+export class AppComponent {
+  keydownHandler(event: KeyboardEvent) {
+    const input = (event.currentTarget as HTMLInputElement)
+    const url = input.value;
+
+    // 1. use a regular expression to check if the URL is valid
+    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+    // 2. check if the url is valid
+    const isUrlValid = urlRegex.test(url)
+
+    // 3. open the url only if is valid and Enter is pressed
+    if (event.key === 'Enter' && isUrlValid) {
+      window.open(url)
+    }
+  }
+}
